@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{Request_Filename} !-F
+RewriteCond %{Request_Filename} !-d
+RewriteRule ^ icdsdb_api.php [QSA,L]
+Options All -Indexes
+
