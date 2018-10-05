@@ -425,12 +425,10 @@ $app->post('/forgot',function($request,$response){
 //..................................................................//
 $app->get('/send/mail',function($req, $res){
     //.......................................................................................
-//    $sql_report="SELECT DATE_SUB(curdate(),INTERVAL 15 DAY) AS past_date,CURDATE() AS today,7 AS DAY,Count(visit_data.centre_open) AS centre_open,Count(visit_data.centreid) AS visit_centre,Sum(visit_data.benef_total) AS total_benfi_during_7_days,Sum(visit_data.benef_serve) AS tota_served_during_7_days,user_master.designation AS designation FROM user_master INNER JOIN visit_data ON user_master.userid=visit_data.userid WHERE visit_data.visit_date BETWEEN date_sub(CURDATE(),INTERVAL 15 DAY) AND CURDATE() AND user_master.designation='DPO'";
-//    $stmt1=$this->db>query($sql_report);
-//    while($row1=$stmt1->fetch_array(MYSQLI_ASSOC))
-//    {
-//        $d1=$row1['designation'];
-//    }
+    $sql="SELECT DATE_SUB(curdate(),INTERVAL 15 DAY) AS past_date,CURDATE() AS today,7 AS DAY,Count(visit_data.centre_open) AS centre_open,Count(visit_data.centreid) AS visit_centre,Sum(visit_data.benef_total) AS total_benfi_during_7_days,Sum(visit_data.benef_serve) AS tota_served_during_7_days,user_master.designation AS designation FROM user_master INNER JOIN visit_data ON user_master.userid=visit_data.userid WHERE visit_data.visit_date BETWEEN date_sub(CURDATE(),INTERVAL 15 DAY) AND CURDATE() AND user_master.designation='DPO'";
+    $stmt1=$this->db->query($sql);
+    $row1=$stmt1->fetch_array(MYSQLI_NUM);
+    $d1=$row1[0];
     //........................................................................................
 
     $sql = "SELECT user_master.email FROM user_master WHERE user_master.designation='Supervisor' limit 2";
@@ -444,22 +442,21 @@ $app->get('/send/mail',function($req, $res){
     // subject
     $subject = 'ICDS Weekly Report Reminder (NIC)';
     // message
-    $d1='dpo';
     $message = '
 <html>
 <head>
   <title>MTMS Weekly Report</title>
 </head>
 <body>
-  <p align="center"><b>Weekly report Details</b></p>
-  <table align="center" cellspacing="15" frame="box">
-    <tr frame="below">
-      <th>Past_date</th><th>Today</th><th>Days</th><th>Centre Open</th><th>Visit Centre</th><th>Total Benfi..</th><th>Served</th><th>Designation</th>
+<font color="#7DCE61"><p align="center"><b>Weekly report Details</b></p></font>
+<table align="center" cellspacing="25" frame="box">
+    <tr>
+        <th>Past_date</th><th>Today</th><th>Days</th><th>Centre Open</th><th>Visit Centre</th><th>Total Benfi..</th><th>Served</th><th>Designation</th>
     </tr>
     <tr>
-      <td align="center">'.$d1.'</td><td align="center">2018-10-04</td><td align="center">7</td><td align="center">2</td><td align="center">2</td><td align="center">36</td><td align="center">33</td><td align="center">CDPO</td>
+        <td align="center"><font color="blue">'.$row1[0].'</font></td><td align="center"><font color="blue">'.$row1[1].'</font></td><td align="center"><font color="blue">'.$row1[2].'</font></td><td align="center"><font color="blue">'.$row1[3].'</font></td><td align="center"><font color="blue">'.$row1[4].'</font></td><td align="center"><font color="blue">'.$row1[5].'</font></td><td align="center"><font color="blue">'.$row1[6].'</font></td><td align="center"><font color="blue">'.$row1[7].'</font></td>
     </tr>
-  </table>
+</table>
 </body>
 </html>
 ';

@@ -10,18 +10,16 @@ $xss = new security();
 $xss->protect_page();
 $xss->session_expired();
 ?>
+
 <?php
-$con=mysqli_connect("localhost","debasishjpg","jalpaiguri","mtmsdb");
-$sql="SELECT DATE_SUB(curdate(),INTERVAL 15 DAY) AS past_date,CURDATE() AS today,7 AS DAY,Count(visit_data.centre_open) AS centre_open,Count(visit_data.centreid) AS visit_centre,Sum(visit_data.benef_total) AS total_benfi_during_7_days,Sum(visit_data.benef_serve) AS tota_served_during_7_days,user_master.designation AS designation FROM user_master INNER JOIN visit_data ON user_master.userid=visit_data.userid WHERE visit_data.visit_date BETWEEN date_sub(CURDATE(),INTERVAL 15 DAY) AND CURDATE() AND user_master.designation='DPO'";
-$result=mysqli_query($con,$sql);
-
-// Fetch all
-while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
-{
-    $d1=$row['designation'];
-
-}
-echo $d1;
+//$con=mysqli_connect("localhost","debasishjpg","jalpaiguri","mtmsdb");
+//$sql="SELECT DATE_SUB(curdate(),INTERVAL 15 DAY) AS past_date,CURDATE() AS today,7 AS DAY,Count(visit_data.centre_open) AS centre_open,Count(visit_data.centreid) AS visit_centre,Sum(visit_data.benef_total) AS total_benfi_during_7_days,Sum(visit_data.benef_serve) AS tota_served_during_7_days,user_master.designation AS designation FROM user_master INNER JOIN visit_data ON user_master.userid=visit_data.userid WHERE visit_data.visit_date BETWEEN date_sub(CURDATE(),INTERVAL 15 DAY) AND CURDATE() AND user_master.designation='DPO'";
+//$result=mysqli_query($con,$sql);
+//
+//// Fetch all
+//$row=mysqli_fetch_array($result,MYSQLI_NUM);
+//    $d1=$row[0];
+//echo $d1;
 //// Free result set
 //mysqli_free_result($result);
 //
