@@ -424,16 +424,27 @@ $app->post('/forgot',function($request,$response){
 //...................Weekly report remind through email.............//
 //..................................................................//
 $app->get('/send/mail',function($req, $res){
+    //.......................................................................................
+//    $sql_report="SELECT DATE_SUB(curdate(),INTERVAL 15 DAY) AS past_date,CURDATE() AS today,7 AS DAY,Count(visit_data.centre_open) AS centre_open,Count(visit_data.centreid) AS visit_centre,Sum(visit_data.benef_total) AS total_benfi_during_7_days,Sum(visit_data.benef_serve) AS tota_served_during_7_days,user_master.designation AS designation FROM user_master INNER JOIN visit_data ON user_master.userid=visit_data.userid WHERE visit_data.visit_date BETWEEN date_sub(CURDATE(),INTERVAL 15 DAY) AND CURDATE() AND user_master.designation='DPO'";
+//    $stmt1=$this->db>query($sql_report);
+//    while($row1=$stmt1->fetch_array(MYSQLI_ASSOC))
+//    {
+//        $d1=$row1['designation'];
+//    }
+    //........................................................................................
 
-    $sql = "SELECT user_master.email FROM user_master WHERE user_master.designation='Supervisor'";
+    $sql = "SELECT user_master.email FROM user_master WHERE user_master.designation='Supervisor' limit 2";
     $stmt = $this->db->query($sql);
     $row = $stmt->fetch_all(MYSQLI_ASSOC); //data store in assoc array
     $db = null;
     $data=array_column($row,'email');   //normal array
+
+
     $to=implode(",",$data);   //remove last comma
     // subject
     $subject = 'ICDS Weekly Report Reminder (NIC)';
     // message
+    $d1='dpo';
     $message = '
 <html>
 <head>
@@ -446,7 +457,7 @@ $app->get('/send/mail',function($req, $res){
       <th>Past_date</th><th>Today</th><th>Days</th><th>Centre Open</th><th>Visit Centre</th><th>Total Benfi..</th><th>Served</th><th>Designation</th>
     </tr>
     <tr>
-      <td align="center">2018-09-19</td><td align="center">2018-10-04</td><td align="center">7</td><td align="center">2</td><td align="center">2</td><td align="center">36</td><td align="center">33</td><td align="center">CDPO</td>
+      <td align="center">'.$d1.'</td><td align="center">2018-10-04</td><td align="center">7</td><td align="center">2</td><td align="center">2</td><td align="center">36</td><td align="center">33</td><td align="center">CDPO</td>
     </tr>
   </table>
 </body>
@@ -465,7 +476,7 @@ $app->get('/send/mail',function($req, $res){
     // Mail it
     if(mail($to, $subject, $message, $headers)){
         $msg=new ApiResponse("Email Send Successfull All Supervisors");
-    }
+   }
     else{
         $msg=new ApiResponse("Email Send fail All Supervisors");
     }

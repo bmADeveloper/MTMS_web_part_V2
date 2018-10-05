@@ -12,58 +12,62 @@ $xss->session_expired();
 ?>
 <?php
 $con=mysqli_connect("localhost","debasishjpg","jalpaiguri","mtmsdb");
-$sql="SELECT user_master.email FROM user_master WHERE user_master.designation='Supervisor' LIMIT 5";
+$sql="SELECT DATE_SUB(curdate(),INTERVAL 15 DAY) AS past_date,CURDATE() AS today,7 AS DAY,Count(visit_data.centre_open) AS centre_open,Count(visit_data.centreid) AS visit_centre,Sum(visit_data.benef_total) AS total_benfi_during_7_days,Sum(visit_data.benef_serve) AS tota_served_during_7_days,user_master.designation AS designation FROM user_master INNER JOIN visit_data ON user_master.userid=visit_data.userid WHERE visit_data.visit_date BETWEEN date_sub(CURDATE(),INTERVAL 15 DAY) AND CURDATE() AND user_master.designation='DPO'";
 $result=mysqli_query($con,$sql);
 
 // Fetch all
-$row=mysqli_fetch_all($result,MYSQLI_ASSOC);
-//print_r($row);
-// Free result set
-mysqli_free_result($result);
+while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+    $d1=$row['designation'];
 
-mysqli_close($con);
-//$gmail_list=array("barun8m@gmail.com","barun49m@gmail.com","lava4boy@gmail.com","barun2018mca@gmail.com");
-//print_r($gmail_list);
-
-
-$to1=array_column($row,'email');
-$to=implode(",",$to1 );
-//print_r ($data);
-// subject
-$subject = 'ICDS Weekly Report Reminder (NIC)';
-
-// message
-$message = '
-<html>
-<head>
-  <title>MTMS Weekly Report</title>
-</head>
-<body>
-  <p align="center"><b>Weekly report Details</b></p>
-  <table align="center" cellspacing="15" frame="box">
-    <tr frame="below">
-      <th>Past_date</th><th>Today</th><th>Days</th><th>Centre Open</th><th>Visit Centre</th><th>Total Benfi..</th><th>Served</th><th>Designation</th>
-    </tr>
-    <tr>
-      <td align="center">2018-09-19</td><td align="center">2018-10-04</td><td align="center">7</td><td align="center">2</td><td align="center">2</td><td align="center">36</td><td align="center">33</td><td align="center">CDPO</td>
-    </tr>
-  </table>
-</body>
-</html>
-';
-// To send HTML mail, the Content-type header must be set
-$headers  = 'MIME-Version: 1.0' . "\r\n";
-$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-// Additional headers
-$headers .= 'To: Mary <mary@example.com>, Kelly <kelly@example.com>' . "\r\n";
-$headers .= 'From: ICDS Report Reminder <icds@example.com>' . "\r\n";
-$headers .= 'Cc: icdsachive@example.com' . "\r\n";
-$headers .= 'Bcc: icdscheck@example.com' . "\r\n";
-
-// Mail it
-//mail($to, $subject, $message, $headers);
-?>
+}
+echo $d1;
+//// Free result set
+//mysqli_free_result($result);
+//
+//mysqli_close($con);
+////$gmail_list=array("barun8m@gmail.com","barun49m@gmail.com","lava4boy@gmail.com","barun2018mca@gmail.com");
+////print_r($gmail_list);
+//
+//
+//$to1=array_column($row,'email');
+//$to=implode(",",$to1 );
+////print_r ($data);
+//// subject
+//$subject = 'ICDS Weekly Report Reminder (NIC)';
+//
+//// message
+//$message = '
+//<html>
+//<head>
+//  <title>MTMS Weekly Report</title>
+//</head>
+//<body>
+//  <p align="center"><b>Weekly report Details</b></p>
+//  <table align="center" cellspacing="15" frame="box">
+//    <tr frame="below">
+//      <th>Past_date</th><th>Today</th><th>Days</th><th>Centre Open</th><th>Visit Centre</th><th>Total Benfi..</th><th>Served</th><th>Designation</th>
+//    </tr>
+//    <tr>
+//      <td align="center">2018-09-19</td><td align="center">2018-10-04</td><td align="center">7</td><td align="center">2</td><td align="center">2</td><td align="center">36</td><td align="center">33</td><td align="center">CDPO</td>
+//    </tr>
+//  </table>
+//</body>
+//</html>
+//';
+//// To send HTML mail, the Content-type header must be set
+//$headers  = 'MIME-Version: 1.0' . "\r\n";
+//$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+//
+//// Additional headers
+//$headers .= 'To: Mary <mary@example.com>, Kelly <kelly@example.com>' . "\r\n";
+//$headers .= 'From: ICDS Report Reminder <icds@example.com>' . "\r\n";
+//$headers .= 'Cc: icdsachive@example.com' . "\r\n";
+//$headers .= 'Bcc: icdscheck@example.com' . "\r\n";
+//
+//// Mail it
+////mail($to, $subject, $message, $headers);
+//?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,6 +122,7 @@ $headers .= 'Bcc: icdscheck@example.com' . "\r\n";
               <div class="box">
                         <div class="columns is-multiline is-centered">
                             <div class="column is-3">
+                                <div class="modal-background"></div>
                                 <div class="card">
                                     <header class="card-header">
                                         <p class="card-header-title">Alert all Supervisors</p>
@@ -130,7 +135,7 @@ $headers .= 'Bcc: icdscheck@example.com' . "\r\n";
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <a class="card-footer-item"><button id="alert_super" class="button is-success is-small is-fullwidth">Alert Supervisors</button></a>
+                                        <a class="card-footer-item"><button id="alert_super" class="button is-success is-small is-fullwidth" deactive>Alert Supervisors</button></a>
                                     </div>
                                 </div>
                             </div>
