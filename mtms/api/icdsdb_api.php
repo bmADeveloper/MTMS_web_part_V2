@@ -423,6 +423,8 @@ $app->post('/forgot',function($request,$response){
 //..................................................................//
 //...................Weekly report remind through email.............//
 //..................................................................//
+
+//.......................Supervisor label...........................//
 $app->get('/send/mail',function($req, $res){
     //.......................................................................................
     $sql="SELECT DATE_SUB(curdate(),INTERVAL 15 DAY) AS past_date,CURDATE() AS today,7 AS DAY,Count(visit_data.centre_open) AS centre_open,Count(visit_data.centreid) AS visit_centre,Sum(visit_data.benef_total) AS total_benfi_during_7_days,Sum(visit_data.benef_serve) AS tota_served_during_7_days,user_master.designation AS designation FROM user_master INNER JOIN visit_data ON user_master.userid=visit_data.userid WHERE visit_data.visit_date BETWEEN date_sub(CURDATE(),INTERVAL 15 DAY) AND CURDATE() AND user_master.designation='DPO'";
@@ -473,13 +475,17 @@ $app->get('/send/mail',function($req, $res){
     // Mail it
     if(mail($to, $subject, $message, $headers)){
         $msg=new ApiResponse("Email Send Successfull All Supervisors");
-   }
+    }
     else{
         $msg=new ApiResponse("Email Send fail All Supervisors");
     }
 
-        return $res->withJson($msg);
-    });
+    return $res->withJson($msg);
+});
+
+//.......................DPO label.................................//
+
+s
 
 
 

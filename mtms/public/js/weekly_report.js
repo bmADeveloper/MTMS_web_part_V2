@@ -1,5 +1,13 @@
 $(document).ready(function(){
-
+    $('#scrolling').DataTable({
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "scrollY": "100px",
+        "scrollX": false,
+        "scrollCollapse": true,
+        "searching": false
+    });
     $("#alert_super").click(function(){
         document.getElementById("alert_super").className = "button is-danger is-small is-fullwidth is-loading";
         $.ajax({

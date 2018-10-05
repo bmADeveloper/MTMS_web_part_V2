@@ -10,62 +10,6 @@ $xss = new security();
 $xss->protect_page();
 $xss->session_expired();
 ?>
-
-<?php
-//$con=mysqli_connect("localhost","debasishjpg","jalpaiguri","mtmsdb");
-//$sql="SELECT DATE_SUB(curdate(),INTERVAL 15 DAY) AS past_date,CURDATE() AS today,7 AS DAY,Count(visit_data.centre_open) AS centre_open,Count(visit_data.centreid) AS visit_centre,Sum(visit_data.benef_total) AS total_benfi_during_7_days,Sum(visit_data.benef_serve) AS tota_served_during_7_days,user_master.designation AS designation FROM user_master INNER JOIN visit_data ON user_master.userid=visit_data.userid WHERE visit_data.visit_date BETWEEN date_sub(CURDATE(),INTERVAL 15 DAY) AND CURDATE() AND user_master.designation='DPO'";
-//$result=mysqli_query($con,$sql);
-//
-//// Fetch all
-//$row=mysqli_fetch_array($result,MYSQLI_NUM);
-//    $d1=$row[0];
-//echo $d1;
-//// Free result set
-//mysqli_free_result($result);
-//
-//mysqli_close($con);
-////$gmail_list=array("barun8m@gmail.com","barun49m@gmail.com","lava4boy@gmail.com","barun2018mca@gmail.com");
-////print_r($gmail_list);
-//
-//
-//$to1=array_column($row,'email');
-//$to=implode(",",$to1 );
-////print_r ($data);
-//// subject
-//$subject = 'ICDS Weekly Report Reminder (NIC)';
-//
-//// message
-//$message = '
-//<html>
-//<head>
-//  <title>MTMS Weekly Report</title>
-//</head>
-//<body>
-//  <p align="center"><b>Weekly report Details</b></p>
-//  <table align="center" cellspacing="15" frame="box">
-//    <tr frame="below">
-//      <th>Past_date</th><th>Today</th><th>Days</th><th>Centre Open</th><th>Visit Centre</th><th>Total Benfi..</th><th>Served</th><th>Designation</th>
-//    </tr>
-//    <tr>
-//      <td align="center">2018-09-19</td><td align="center">2018-10-04</td><td align="center">7</td><td align="center">2</td><td align="center">2</td><td align="center">36</td><td align="center">33</td><td align="center">CDPO</td>
-//    </tr>
-//  </table>
-//</body>
-//</html>
-//';
-//// To send HTML mail, the Content-type header must be set
-//$headers  = 'MIME-Version: 1.0' . "\r\n";
-//$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-//
-//// Additional headers
-//$headers .= 'To: Mary <mary@example.com>, Kelly <kelly@example.com>' . "\r\n";
-//$headers .= 'From: ICDS Report Reminder <icds@example.com>' . "\r\n";
-//$headers .= 'Cc: icdsachive@example.com' . "\r\n";
-//$headers .= 'Bcc: icdscheck@example.com' . "\r\n";
-//
-//// Mail it
-////mail($to, $subject, $message, $headers);
-//?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,7 +64,6 @@ $xss->session_expired();
               <div class="box">
                         <div class="columns is-multiline is-centered">
                             <div class="column is-3">
-                                <div class="modal-background"></div>
                                 <div class="card">
                                     <header class="card-header">
                                         <p class="card-header-title">Alert all Supervisors</p>
@@ -193,6 +136,129 @@ $xss->session_expired();
                             </div>
                         </div>
                     </div>
+            <div class="box">
+                <div class="columns is-multiline is-centered">
+                    <div class="column is-3">
+                        <div class="card">
+                            <header class="card-header ">
+                                <p class="card-header-title has-text-info">Mail Delivery report</p>
+                            </header>
+                            <div class="card-content">
+                                <table class="table" id="scrolling">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Deliver</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2018-09-12</td>
+                                            <td>Yes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2018-09-12</td>
+                                            <td>Yes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2018-09-12</td>
+                                            <td>Yes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2018-09-12</td>
+                                            <td>Yes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2018-09-12</td>
+                                            <td>Yes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2018-09-12</td>
+                                            <td>Yes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2018-09-12</td>
+                                            <td>Yes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2018-09-12</td>
+                                            <td>Yes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2018-09-12</td>
+                                            <td>Yes</td>
+                                        </tr><tr>
+                                            <td>2018-09-12</td>
+                                            <td>Yes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2018-09-12</td>
+                                            <td>No</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2018-09-12</td>
+                                            <td>Yes</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-3">
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">Alert all CDPO's</p>
+                            </header>
+                            <div class="card-content">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input is-primary" type="text" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a class="card-footer-item"><button href="#" class="button is-info">Create</button></a>
+                                <a class="card-footer-item"><button href="#" class="button is-warning">Cancel</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-3">
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">Alert DPO</p>
+                            </header>
+                            <div class="card-content">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input is-primary" type="text" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a class="card-footer-item"><button href="#" class="button is-info">Create</button></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-3">
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">Alert DM</p>
+                            </header>
+                            <div class="card-content">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input is-primary" type="text" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a class="card-footer-item"><button href="#" class="button is-info">Create</button></a>
+                                <a class="card-footer-item"><button href="#" class="button is-warning">Cancel</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
     </div>
 </section>
